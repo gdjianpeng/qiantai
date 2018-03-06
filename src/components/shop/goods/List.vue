@@ -67,14 +67,17 @@
         </div>
 
         <!-- 页面主体 - 商品列表预览, 抽取为子组件 -->
+        <list-main></list-main>
     </div>
 </template>
 
 <script>
 import AppAside from "./subcom/CommonAside";
+import ListMain from "./subcom/ListMain"
 export default {
   components: {
-    AppAside
+    AppAside,
+    ListMain
   },
   data() {
     return {
