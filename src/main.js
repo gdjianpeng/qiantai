@@ -16,9 +16,13 @@ import api, { domain } from './js/api.js'
 
 import './less/index.less'
 import './assets/css/style.css'
+import Vuex from 'vuex'
+import storeCart from './store/cart.js'
+
 
 
 Vue.use(ElementUI)
+Vue.use(Vuex)
 
 
 // 配置默认域名, 这样请求的时候就不用在url里每次手动加域名了
@@ -38,5 +42,7 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  store: new Vuex.Store(storeCart)
+
 })
