@@ -14,7 +14,8 @@
                 <div class="bg-wrap">
                     <!-- 头部进度 -->
                     <div class="cart-head clearfix">
-                        <h2><i class="iconfont icon-cart"></i>我的购物车</h2>
+                        <h2>
+                            <i class="iconfont icon-cart"></i>我的购物车</h2>
                         <div class="cart-setp">
                             <ul>
                                 <li class="first active">
@@ -77,7 +78,9 @@
                                 <tr>
                                     <td colspan="10">
                                         <div class="msg-tips">
-                                            <div class="icon warning"><i class="iconfont icon-tip"></i></div>
+                                            <div class="icon warning">
+                                                <i class="iconfont icon-tip"></i>
+                                            </div>
                                             <div class="info">
                                                 <strong>购物车没有商品！</strong>
                                                 <p>您的购物车为空，
@@ -90,9 +93,9 @@
                                 <tr>
                                     <th align="right" colspan="8">
                                         已选择商品
-                                        <b class="red" id="totalQuantity">5</b> 件 &nbsp;&nbsp;&nbsp;
-                                        商品总金额（不含运费）：
-                                        <span class="red">￥</span><b class="red" id="totalAmount">9999</b>元
+                                        <b class="red" id="totalQuantity">5</b> 件 &nbsp;&nbsp;&nbsp; 商品总金额（不含运费）：
+                                        <span class="red">￥</span>
+                                        <b class="red" id="totalAmount">9999</b>元
                                     </th>
                                 </tr>
                             </tbody>
@@ -114,8 +117,34 @@
 </template>
 
 <script>
-    export default {}
+    export default {
+                  data() {
+             return {
+                 goodsList: []
+             }
+         },
+ 
+         methods: {
+             // 先拿到全局状态中所有id拼成的ids, 然后调接口
+             getGoodsList() {
+                 let ids = Object.keys(this.$store.state.cart); // 提取全局状态里的id
+                 this.$http.get(this.$api.shopcartGoods=ids).then(res => {
+                     if(res.data.status == 0) {
+                         // 给每个商品统一添加一个控制开关属性selected
+                         res.data.message.forEach(v => v.selected = true);
+                         // 修改data数据, 视图刷新
+                         this.goodsList = res.data.message;
+                     }
+                 })
+             }
+         },
+ 
+         created() {
+             this.getGoodsList();
+         }
+    }
 </script>
 
 <style>
+
 </style>
