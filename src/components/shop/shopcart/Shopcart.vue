@@ -73,7 +73,7 @@
                                         <td>￥5434</td>
                                     </th>
                                     <th width="54" align="center">
-                                        <el-button size="mini">删除</el-button>
+                                        <el-button @click="del(item.id)" size="mini">删除</el-button>
                                     </th>
                                 </tr>
 
@@ -171,6 +171,12 @@ export default {
       this.goodsList.forEach(v => (v.selected = newStatus));
     },
 
+    // 删除 => 先从goodsList里面删除, 再从全局cart状态里删除
+    del(id) {
+      this.goodsList = this.goodsList.filter(v => v.id != id); // 找出不删除的商品
+      this.$store.commit("del", id); // 调用mutaions方法删除
+    },
+    
     created() {
       this.getGoodsList();
     }
