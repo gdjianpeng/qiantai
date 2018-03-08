@@ -36,7 +36,7 @@ let shopcart = [{
 
 let order = [{
     name: 'orderSite',
-    path: 'order/site',
+  path: 'order/site/:ids',
     component: OrderSite
   }, // 需要知道哪些商品要下单
   {
